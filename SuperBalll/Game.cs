@@ -14,6 +14,10 @@ namespace SuperBalll
         PictureBox GameWindow;
         ObjectCollection Objects;
 
+        /// <summary>
+        /// Создает экземпляр игры, и связывает его с игровым окном, которым является PictureBox
+        /// </summary>
+        /// <param name="gameWindow">PictureBox - игровое окно</param>
         public Game(PictureBox gameWindow)
         {
             this.GameWindow = gameWindow;
@@ -23,7 +27,7 @@ namespace SuperBalll
         public void Draw()
         {
             G.Clear(Color.White);
-
+            foreach()
             GameWindow.Image = Image;
         }
         
