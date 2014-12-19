@@ -52,8 +52,10 @@
     </Compile>
     <Compile Include="Game.cs" />
     <Compile Include="GameObject.cs" />
-    <Compile Include="IDynamicObject.cs" />
+    <Compile Include="IAnimation.cs" />
     <Compile Include="ObjectCollection.cs" />
+    <Compile Include="Objects\Player.cs" />
+    <Compile Include="Objects\Selector.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

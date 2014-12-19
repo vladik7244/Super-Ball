@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
+
 namespace SuperBalll
 {
-    interface IDynamicObject
+    interface IAnimation
     {
-  
-        PointF Gravity{get;set;}
-        PointF Speed{get;set;}
+        float Animation { get; set; }
+        float AnimationStep { get; set; }
     }
 }
