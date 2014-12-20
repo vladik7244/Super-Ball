@@ -12,10 +12,10 @@ namespace SuperBalll.Objects
         {
             this.player = player;
             this.IsVisible = true;
-            actions.Add(new SelectorItem(Color.Red, () => { player.Speed = new PointF(0, -10); }));
-            actions.Add(new SelectorItem(Color.Green, () => { player.Acceleration= new PointF(0,0); }));
-            actions.Add(new SelectorItem(Color.Violet, () => { player.Acceleration = new PointF(0, 1); }));
-            actions.Add(new SelectorItem(Color.Blue, () => { player.Speed=new PointF(0,0); }));
+            actions.Add(new SelectorItem(Color.Red, () => { player.Speed = new PointF(0, -10); },"Jump"));
+            actions.Add(new SelectorItem(Color.Green, () => { player.Acceleration= new PointF(0,0); },"Ungravity"));
+            actions.Add(new SelectorItem(Color.Violet, () => { player.Acceleration = new PointF(0, 0.4f); }, "Gravity"));
+            actions.Add(new SelectorItem(Color.Blue, () => { player.Speed=new PointF(0,0); },"Stop"));
         }
         Player player;
         List<SelectorItem> actions = new List<SelectorItem>();
@@ -45,7 +45,7 @@ namespace SuperBalll.Objects
                     g.TranslateTransform(128, 0);
                     g.RotateTransform(360 * i / actions.Count);
                     if (i != nearestItem) { g.ScaleTransform(0.8f, 0.8f); }
-                    Actions[i].Draw(g);
+                    Actions[i].Draw(g,Animation);
                     if (i != nearestItem) { g.ScaleTransform(1f / 0.8f, 1f / 0.8f); }
                     g.RotateTransform(-360 * i / actions.Count);
                     g.TranslateTransform(-128, 0);
@@ -96,7 +96,7 @@ namespace SuperBalll.Objects
                 if (actions[nearestItem].Action != null)
                 {
                     actions[nearestItem].Action();
-                    player.Color = actions[nearestItem].col;
+                    player.Color = actions[nearestItem].Color;
                 }
             }
         }
@@ -137,24 +137,23 @@ namespace SuperBalll.Objects
     }
     public class SelectorItem
     {
-        public Color col;
-        public SelectorItem(Color color,Action action)
+        public Color Color{get;set;}
+        public string Text { get; set; }
+        public Action Action { get; set; }
+    
+        public SelectorItem(Color color, Action action, string text)
         {
-            this.col = color;
-            this.action = action;
+            this.Color = color;
+            this.Action = action;
+            this.Text = text;
         }
 
-        private Action action;
-
-        public Action Action
+       
+        public void Draw(System.Drawing.Graphics g,float Animation)
         {
-            get { return action; }
-            set { action = value; }
-        }
-        public void Draw(System.Drawing.Graphics g)
-        {
-
-            g.FillEllipse(new SolidBrush(col), new Rectangle(-20, -20, 40, 40));
+            
+            g.FillEllipse(new SolidBrush(Color), new RectangleF(-20*Animation, -20*Animation, 40*Animation, 40*Animation));
+            g.DrawString(Text, Program.font, Brushes.Blue, new PointF(0, 30),Program.stringFormat);
         }
     }
 }
