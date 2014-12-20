@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SuperBalll
 {
-    interface IAnimation
+    public interface IAnimation
     {
         float Animation { get; set; }
         float AnimationStep { get; set; }

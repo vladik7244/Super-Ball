@@ -1,0 +1,8 @@
+D:\Мультимедиа\Документы\Visual Studio 2013\Projects\SuperBalll\Super-Ball\testApp\bin\Debug\testApp.exe.config
+D:\Мультимедиа\Документы\Visual Studio 2013\Projects\SuperBalll\Super-Ball\testApp\bin\Debug\testApp.exe
+D:\Мультимедиа\Документы\Visual Studio 2013\Projects\SuperBalll\Super-Ball\testApp\bin\Debug\testApp.pdb
+D:\Мультимедиа\Документы\Visual Studio 2013\Projects\SuperBalll\Super-Ball\testApp\bin\Debug\SuperBalll.exe
+D:\Мультимедиа\Документы\Visual Studio 2013\Projects\SuperBalll\Super-Ball\testApp\bin\Debug\SuperBalll.pdb
+D:\Мультимедиа\Документы\Visual Studio 2013\Projects\SuperBalll\Super-Ball\testApp\obj\Debug\testApp.csprojResolveAssemblyReference.cache
+D:\Мультимедиа\Документы\Visual Studio 2013\Projects\SuperBalll\Super-Ball\testApp\obj\Debug\testApp.exe
+D:\Мультимедиа\Документы\Visual Studio 2013\Projects\SuperBalll\Super-Ball\testApp\obj\Debug\testApp.pdb

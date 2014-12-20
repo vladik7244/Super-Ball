@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SuperBalll
 {
-    class ObjectCollection
+    public class ObjectCollection
     {
         public List<GameObject> Items;
         public List<IAnimation> Animated;

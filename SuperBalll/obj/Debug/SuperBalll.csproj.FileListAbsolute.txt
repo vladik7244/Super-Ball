@@ -12,7 +12,7 @@ D:\Мультимедиа\Документы\Visual Studio 2013\Projects\SuperBa
 D:\Мультимедиа\Документы\Visual Studio 2013\Projects\SuperBalll\Super-Ball\SuperBalll\obj\Debug\SuperBalll.pdb
 D:\Мультимедиа\Документы\Visual Studio 2013\Projects\SuperBalll\Super-Ball\SuperBalll\bin\Debug\SuperBalll.exe
 D:\Мультимедиа\Документы\Visual Studio 2013\Projects\SuperBalll\Super-Ball\SuperBalll\bin\Debug\SuperBalll.pdb
-D:\Мультимедиа\Документы\Visual Studio 2013\Projects\SuperBalll\Super-Ball\SuperBalll\obj\Debug\SuperBalll.csprojResolveAssemblyReference.cache
 D:\Мультимедиа\Документы\Visual Studio 2013\Projects\SuperBalll\Super-Ball\SuperBalll\obj\Debug\SuperBalll.Form1.resources
 D:\Мультимедиа\Документы\Visual Studio 2013\Projects\SuperBalll\Super-Ball\SuperBalll\obj\Debug\SuperBalll.Properties.Resources.resources
 D:\Мультимедиа\Документы\Visual Studio 2013\Projects\SuperBalll\Super-Ball\SuperBalll\obj\Debug\SuperBalll.csproj.GenerateResource.Cache
+D:\Мультимедиа\Документы\Visual Studio 2013\Projects\SuperBalll\Super-Ball\SuperBalll\obj\Debug\SuperBalll.csprojResolveAssemblyReference.cache

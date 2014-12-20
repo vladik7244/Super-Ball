@@ -7,9 +7,9 @@ using System.Windows.Forms;
 using System.Drawing;
 namespace SuperBalll
 {
-    class Game
+    public class Game
     {
-
+        public Point MousePosition;
 
         Timer StepTimer;
 
@@ -72,14 +72,20 @@ namespace SuperBalll
             this.StepTimer.Start();
             this.GameWindow.MouseDown += GameWindow_MouseDown;
             this.GameWindow.MouseUp += GameWindow_MouseUp;
-          
+            this.GameWindow.MouseMove += GameWindow_MouseMove;
+
+        }
+
+        void GameWindow_MouseMove(object sender, MouseEventArgs e)
+        {
+            MousePosition = e.Location;
         }
 
         void GameWindow_MouseUp(object sender, MouseEventArgs e)
         {
             foreach (GameObject obj in Objects.Items)
             {
-                obj.MouseUp(e.Button,e.Location);
+                obj.MouseUp(e.Button, e.Location);
             }
         }
 
@@ -97,7 +103,7 @@ namespace SuperBalll
             Draw();
         }
 
-     
+
         /// <summary>
         /// Создает экземпляр игры, и связывает его с игровым окном, которым является PictureBox
         /// </summary>
@@ -105,7 +111,7 @@ namespace SuperBalll
         public void Draw()
         {
             G.Clear(windowColor);
-            foreach(GameObject obj in Objects.Items)
+            foreach (GameObject obj in Objects.Items)
             {
                 obj.Draw(G);
             }
@@ -116,32 +122,71 @@ namespace SuperBalll
         /// </summary>
         public void Step()
         {
-            foreach(IAnimation obj in Objects.Animated)
+            foreach (IAnimation obj in Objects.Animated)
             {
                 if (obj.Animation <= 1 && obj.Animation >= 0) obj.Animation += obj.AnimationStep;
                 obj.Animation = Math.Min(1, Math.Max(0, obj.Animation));
             }
+
             foreach (GameObject obj in Objects.Items)
             {
                 obj.Step();
             }
-            
+
         }
 
-      /*  public void KeyUp()
+        /*  public void KeyUp()
+          {
+              foreach (GameObject obj in Objects.Items)
+              {
+                  obj.KeyUp();
+              }
+          }
+          public void keyDown()
+          {
+              foreach (GameObject obj in Objects.Items)
+              {
+                  obj.KeyDown();
+              }
+          }*/
+        /// <summary>
+        /// Возвращает угол между двумя точками
+        /// </summary>
+        /// <param name="p1">Певрая точка</param>
+        /// <param name="p2">Вторая точка</param>
+        /// <returns> угол между двумя точками</returns>
+        public static float GetPointAngle(PointF p1, PointF p2)
         {
-            foreach (GameObject obj in Objects.Items)
-            {
-                obj.KeyUp();
-            }
+            //return (float)Math.Acos((p2.X - p1.X) / GetPointLength(p1, p2)) * 180 / (float)Math.PI;
+            if (p2.Y < p1.Y)
+                return (float)Math.Acos((p2.X - p1.X) / GetPointLength(p1, p2)) * 180 / (float)Math.PI;
+            else
+                return 360f - (float)Math.Acos((p2.X - p1.X) / GetPointLength(p1, p2)) * 180 / (float)Math.PI;
         }
-        public void keyDown()
+        /// <summary>
+        /// Возвращает расстояние между двумя точками
+        /// </summary>
+        /// <param name="p1">Певрая точка</param>
+        /// <param name="p2">Вторая точка</param>
+        /// <returns>расстояние между двумя точками</returns>
+        public static float GetPointLength(PointF p1, PointF p2)
         {
-            foreach (GameObject obj in Objects.Items)
-            {
-                obj.KeyDown();
-            }
-        }*/
-  
+            return (float)Math.Sqrt((p2.X - p1.X) * (p2.X - p1.X) + (p2.Y - p1.Y) * (p2.Y - p1.Y));
+        }
+        /// <summary>
+        /// Возвращает разницу между двумя углами
+        /// </summary>
+        /// <param name="a1">угол 1</param>
+        /// <param name="a2">угол 2</param>
+        /// <returns>разницу между двумя углами</returns>
+        public static float SubstactAngle(float a, float b)
+        {
+           /* float aa1 = (float)(Math.Acos(Math.Cos(a1 * Math.PI / 180)) * 180f / Math.PI);
+            float aa2 = (float)(Math.Acos(Math.Cos(a2 * Math.PI / 180)) * 180f / Math.PI);
+            return Math.Abs(aa2 - aa1);*/
+            float r1, r2;
+            if (a > b) { r1 = a - b; r2 = b - a + 360; } else { r1 = b - a; r2 = a - b + 360; }
+            return Math.Min(r1, r2);
+        }
     }
 }

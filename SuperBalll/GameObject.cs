@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Windows.Forms;
 namespace SuperBalll
 {
-    abstract class GameObject
+    public abstract class GameObject
     {
         bool isVisible=true;
         /// <summary>
@@ -86,6 +86,10 @@ namespace SuperBalll
 
         }
         public virtual void MouseDown(MouseButtons mb,Point loc)
+        {
+
+        }
+        public virtual void MouseMove(Point loc)
         {
 
         }

@@ -6,21 +6,112 @@ using System.Threading.Tasks;
 using System.Drawing;
 namespace SuperBalll.Objects
 {
-    class Selector:GameObject,IAnimation
+    public class Selector : GameObject, IAnimation
     {
-        public Selector()
+        public Selector(Player player)
         {
-            this.IsVisible = true; 
+            this.player = player;
+            this.IsVisible = true;
+            actions.Add(new SelectorItem(Color.Red, () => { player.Speed = new PointF(0, -10); }));
+            actions.Add(new SelectorItem(Color.Green, () => { player.Acceleration= new PointF(0,0); }));
+            actions.Add(new SelectorItem(Color.Violet, () => { player.Acceleration = new PointF(0, 1); }));
+            actions.Add(new SelectorItem(Color.Blue, () => { player.Speed=new PointF(0,0); }));
+        }
+        Player player;
+        List<SelectorItem> actions = new List<SelectorItem>();
+        /// <summary>
+        /// Список действий, которые может выполнять пользователь
+        /// </summary>
+        internal List<SelectorItem> Actions
+        {
+            get { return actions; }
+            set { actions = value; }
         }
 
+        int nearestItem;
         public override void Draw(System.Drawing.Graphics g)
         {
-            if(IsVisible)
-            g.DrawArc(new System.Drawing.Pen(new SolidBrush(Color.FromArgb(Convert.ToInt32(255*Animation),Color.Blue)), 8), new RectangleF(Location, new Size(128, 128)),-90,Animation*360);
-           
+            if (IsVisible)
+            {
+                g.TranslateTransform(Location.X + 64, Location.Y + 64);
+
+                g.DrawArc(new System.Drawing.Pen(new SolidBrush(Color.FromArgb(Convert.ToInt32(255 * Animation), Color.Blue)), 8), new RectangleF(-64, -64, 128, 128), -90, Animation * 360);
+
+                nearestItem = GetNearestItem();
+                for (int i = 0; i < actions.Count; i++)
+                {
+                    g.RotateTransform(-360 * i / actions.Count);
+
+                    g.TranslateTransform(128, 0);
+                    g.RotateTransform(360 * i / actions.Count);
+                    if (i != nearestItem) { g.ScaleTransform(0.8f, 0.8f); }
+                    Actions[i].Draw(g);
+                    if (i != nearestItem) { g.ScaleTransform(1f / 0.8f, 1f / 0.8f); }
+                    g.RotateTransform(-360 * i / actions.Count);
+                    g.TranslateTransform(-128, 0);
+                    g.RotateTransform(360 * i / actions.Count);
+                }
+
+                //g.DrawString(nearestItem.ToString(), new Font("Segoe UI", 14), Brushes.Blue, new PointF(0, 0));
+
+               
+                g.TranslateTransform(-Location.X, -Location.Y);
+                g.ResetTransform();
+            }
         }
+        /// <summary>
+        /// Возвращает ближайший элемент селектора к мышке
+        /// </summary>
+        /// <returns>-1, если такого элемента нет</returns>
+        private int GetNearestItem()
+        {
+            float angle = Game.GetPointAngle(new Point(Convert.ToInt32(Location.X) + 64, Convert.ToInt32(Location.Y) + 64), Program.game.MousePosition);
+            float[] angles = new float[actions.Count];
+            for (int i = 0; i < actions.Count; i++)
+            {
+                angles[i] = Game.SubstactAngle(angle, (float)i / (float)actions.Count * 360);
+         
+            }
+            int min = 0;
+
+            for (int i = 1; i < angles.Length; i++)
+            {
+                if (angles[i] < angles[min]) { min = i; }
+            }
+            if (Game.GetPointLength(Program.game.MousePosition, new Point(Convert.ToInt32(Location.X) + 64, Convert.ToInt32(Location.Y) + 64)) < 64) min = -1;
+
+            return min;
+
+        }
+
+        public override void MouseDown(System.Windows.Forms.MouseButtons mb, Point loc)
+        {
+
+        }
+
+        public override void MouseUp(System.Windows.Forms.MouseButtons mb, Point loc)
+        {
+            if (nearestItem != -1)
+            {
+                if (actions[nearestItem].Action != null)
+                {
+                    actions[nearestItem].Action();
+                    player.Color = actions[nearestItem].col;
+                }
+            }
+        }
+
+
         public override void Step()
         {
+            if (Animation == 0)
+            {
+                IsVisible = false;
+            }
+            else
+            {
+                IsVisible = true;
+            }
 
             base.Step();
         }
@@ -42,6 +133,28 @@ namespace SuperBalll.Objects
             get { return animationStep; }
             set { animationStep = value; }
         }
-    
+
+    }
+    public class SelectorItem
+    {
+        public Color col;
+        public SelectorItem(Color color,Action action)
+        {
+            this.col = color;
+            this.action = action;
+        }
+
+        private Action action;
+
+        public Action Action
+        {
+            get { return action; }
+            set { action = value; }
+        }
+        public void Draw(System.Drawing.Graphics g)
+        {
+
+            g.FillEllipse(new SolidBrush(col), new Rectangle(-20, -20, 40, 40));
+        }
     }
 }
