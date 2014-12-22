@@ -13,11 +13,7 @@ namespace SuperBalll
         /// <summary>
         /// Видимй ли объект
         /// </summary>
-        public bool IsVisible
-        {
-            get { return isVisible; }
-            set { isVisible = value; }
-        }
+        public bool IsVisible { get; set; }
         PointF location = new PointF(0, 0);
         /// <summary>
         /// Координаты объекта

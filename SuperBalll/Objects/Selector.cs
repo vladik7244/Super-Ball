@@ -33,28 +33,42 @@ namespace SuperBalll.Objects
         {
             if (IsVisible)
             {
-                g.TranslateTransform(Location.X + 64, Location.Y + 64);
+                g.TranslateTransform(Location.X + 50, Location.Y + 50);
 
-                g.DrawArc(new System.Drawing.Pen(new SolidBrush(Color.FromArgb(Convert.ToInt32(255 * Animation), Color.Blue)), 8), new RectangleF(-64, -64, 128, 128), -90, Animation * 360);
+                g.DrawArc(new System.Drawing.Pen(new SolidBrush(Color.FromArgb(Convert.ToInt32(255 * Animation), Color.Blue)), 8), new RectangleF(-50, -50, 100, 100), -90, Animation * 360);
 
                 nearestItem = GetNearestItem();
                 for (int i = 0; i < actions.Count; i++)
                 {
                     g.RotateTransform(-360 * i / actions.Count);
 
-                    g.TranslateTransform(128, 0);
+                    g.TranslateTransform(100, 0);
                     g.RotateTransform(360 * i / actions.Count);
-                    if (i != nearestItem) { g.ScaleTransform(0.8f, 0.8f); }
+                    if (i != nearestItem) { g.ScaleTransform(0.75f, 0.75f); }
                     Actions[i].Draw(g,Animation);
-                    if (i != nearestItem) { g.ScaleTransform(1f / 0.8f, 1f / 0.8f); }
+                    if (i != nearestItem) { g.ScaleTransform(1f / 0.75f, 1f / 0.75f); }
                     g.RotateTransform(-360 * i / actions.Count);
-                    g.TranslateTransform(-128, 0);
+                    g.TranslateTransform(-100, 0);
                     g.RotateTransform(360 * i / actions.Count);
                 }
-
+                float angle = Game.GetPointAngle(new Point(Convert.ToInt32(Location.X) + 50, Convert.ToInt32(Location.Y) + 50), Program.game.MousePosition);
+                float length = Game.GetPointLength(new Point(Convert.ToInt32(Location.X) + 50, Convert.ToInt32(Location.Y) + 50), Program.game.MousePosition);
+                PointF translateLength = Game.LengthDir(64, -angle);
+                if (length > 50)
+                {
+                    g.TranslateTransform(translateLength.X, translateLength.Y) ;
+                    g.RotateTransform(-angle);
+                    g.TranslateTransform(-16, -16);
+                    g.DrawImageUnscaledAndClipped(Properties.Resources.Arrow, new Rectangle(0, 0, Properties.Resources.Arrow.Width, Properties.Resources.Arrow.Height));
+                    g.TranslateTransform(16, 16);
+                    g.RotateTransform(angle);
+                    g.TranslateTransform(-translateLength.X, -translateLength.Y);
+                   
+                }
+                //g.DrawImageUnscaledAndClipped()
                 //g.DrawString(nearestItem.ToString(), new Font("Segoe UI", 14), Brushes.Blue, new PointF(0, 0));
-
                
+                
                 g.TranslateTransform(-Location.X, -Location.Y);
                 g.ResetTransform();
             }
@@ -65,7 +79,7 @@ namespace SuperBalll.Objects
         /// <returns>-1, если такого элемента нет</returns>
         private int GetNearestItem()
         {
-            float angle = Game.GetPointAngle(new Point(Convert.ToInt32(Location.X) + 64, Convert.ToInt32(Location.Y) + 64), Program.game.MousePosition);
+            float angle = Game.GetPointAngle(new Point(Convert.ToInt32(Location.X) + 50, Convert.ToInt32(Location.Y) + 50), Program.game.MousePosition);
             float[] angles = new float[actions.Count];
             for (int i = 0; i < actions.Count; i++)
             {
@@ -78,7 +92,7 @@ namespace SuperBalll.Objects
             {
                 if (angles[i] < angles[min]) { min = i; }
             }
-            if (Game.GetPointLength(Program.game.MousePosition, new Point(Convert.ToInt32(Location.X) + 64, Convert.ToInt32(Location.Y) + 64)) < 64) min = -1;
+            if (Game.GetPointLength(Program.game.MousePosition, new Point(Convert.ToInt32(Location.X) + 50, Convert.ToInt32(Location.Y) + 50)) < 50) min = -1;
 
             return min;
 

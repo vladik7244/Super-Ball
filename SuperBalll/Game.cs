@@ -188,5 +188,9 @@ namespace SuperBalll
             if (a > b) { r1 = a - b; r2 = b - a + 360; } else { r1 = b - a; r2 = a - b + 360; }
             return Math.Min(r1, r2);
         }
+        public static PointF LengthDir(float length,float angle)
+        {
+            return new PointF((float)Math.Cos(angle * Math.PI / 180) * length, (float)Math.Sin(angle * Math.PI / 180) * length);
+        }
     }
 }
