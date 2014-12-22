@@ -40,6 +40,7 @@ namespace SuperBalll.Objects
             g.FillEllipse(new SolidBrush(Color), rectangle);
             g.DrawEllipse(new Pen(Brushes.Black, 3), rectangle);
             //g.DrawImage(Image.FromFile("sprite.png"), Location);
+           
         }
 
         /// <summary>

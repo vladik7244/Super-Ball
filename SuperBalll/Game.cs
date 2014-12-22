@@ -61,6 +61,7 @@ namespace SuperBalll
             this.GameWindow = gameWindow;
             this.Image = new Bitmap(GameWindow.Width, GameWindow.Height);
             this.G = Graphics.FromImage(Image);
+            this.G.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             this.Objects = new ObjectCollection();
             this.windowColor = Color.Black;
             this.StepTimer = new Timer();
@@ -191,6 +192,7 @@ namespace SuperBalll
         public static PointF LengthDir(float length,float angle)
         {
             return new PointF((float)Math.Cos(angle * Math.PI / 180) * length, (float)Math.Sin(angle * Math.PI / 180) * length);
+            
         }
     }
 }

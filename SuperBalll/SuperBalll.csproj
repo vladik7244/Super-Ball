@@ -52,6 +52,7 @@
     </Compile>
     <Compile Include="Game.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="GraphicsExtension.cs" />
     <Compile Include="IAnimation.cs" />
     <Compile Include="ObjectCollection.cs" />
     <Compile Include="Objects\Player.cs" />

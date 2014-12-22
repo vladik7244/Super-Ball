@@ -9,7 +9,7 @@ namespace SuperBalll
 {
     public abstract class GameObject
     {
-        bool isVisible=true;
+       
         /// <summary>
         /// Видимй ли объект
         /// </summary>
